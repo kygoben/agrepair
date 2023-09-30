@@ -24,6 +24,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@supabase/supabase-js": "^2.37.0",
 		"font-awesome": "^4.7.0"
 	}
 }
