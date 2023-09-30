@@ -17,65 +17,79 @@
 
     // Sample data
     let conversations: Conversation[] = [
-    {
-        id: 1,
-        name: "John Doe",
-        latestMessage: "I'll be there around 3pm, hope that's fine?",
-        messages: [
-            { sender: "user", content: "Hello John! We were discussing a repair for my tractor." },
-            { sender: "John Doe", content: "Ah, yes! I remember. Would tomorrow work for you?" },
-            { sender: "user", content: "Tomorrow sounds perfect. Let me know your preferred time." },
-            { sender: "John Doe", content: "I'll be there around 3pm, hope that's fine?" }
-        ]
-    },
-    {
-        id: 2,
-        name: "Anna Smith",
-        latestMessage: "Sure, I'll send the invoice tonight.",
-        messages: [
-            { sender: "user", content: "Hey Anna, great job on the combine harvester!" },
-            { sender: "Anna Smith", content: "Thank you! I'm glad you're satisfied with the repair." },
-            { sender: "user", content: "Could you please send the invoice for the repair?" },
-            { sender: "Anna Smith", content: "Sure, I'll send the invoice tonight." }
-        ]
-    },
-    {
-        id: 3,
-        name: "Mike Harrison",
-        latestMessage: "Yes, that's included in our services.",
-        messages: [
-            { sender: "user", content: "Mike, does your repair service cover hydraulic issues?" },
-            { sender: "Mike Harrison", content: "Absolutely. Are you facing an issue with a specific equipment?" },
-            { sender: "user", content: "Yes, my backhoe loader has been acting up. Do you do on-site inspections?" },
-            { sender: "Mike Harrison", content: "Yes, that's included in our services." }
-        ]
-    },
-    {
-        id: 4,
-        name: "Sophie Turner",
-        latestMessage: "I've booked you for Thursday.",
-        messages: [
-            { sender: "user", content: "Sophie, I heard you're the best in town for combine repairs." },
-            { sender: "Sophie Turner", content: "Thank you for the compliment! How can I assist you?" },
-            { sender: "user", content: "My combine has been producing a weird noise. Can you take a look?" },
-            { sender: "Sophie Turner", content: "Definitely! I have an opening on Thursday, does that work for you?" },
-            { sender: "user", content: "Perfect, see you then!" },
-            { sender: "Sophie Turner", content: "I've booked you for Thursday." }
-        ]
+        {
+            id: 1,
+            name: "John Doe",
+            latestMessage: "I'll be there around 3pm, hope that's fine?",
+            messages: [
+                { sender: "user", content: "Hello John! We were discussing a repair for my tractor." },
+                { sender: "John Doe", content: "Ah, yes! I remember. Would tomorrow work for you?" },
+                { sender: "user", content: "Tomorrow sounds perfect. Let me know your preferred time." },
+                { sender: "John Doe", content: "I'll be there around 3pm, hope that's fine?" }
+            ]
+        },
+        {
+            id: 2,
+            name: "Anna Smith",
+            latestMessage: "Sure, I'll send the invoice tonight.",
+            messages: [
+                { sender: "user", content: "Hey Anna, great job on the combine harvester!" },
+                { sender: "Anna Smith", content: "Thank you! I'm glad you're satisfied with the repair." },
+                { sender: "user", content: "Could you please send the invoice for the repair?" },
+                { sender: "Anna Smith", content: "Sure, I'll send the invoice tonight." }
+            ]
+        },
+        {
+            id: 3,
+            name: "Mike Harrison",
+            latestMessage: "Yes, that's included in our services.",
+            messages: [
+                { sender: "user", content: "Mike, does your repair service cover hydraulic issues?" },
+                { sender: "Mike Harrison", content: "Absolutely. Are you facing an issue with a specific equipment?" },
+                { sender: "user", content: "Yes, my backhoe loader has been acting up. Do you do on-site inspections?" },
+                { sender: "Mike Harrison", content: "Yes, that's included in our services." }
+            ]
+        },
+        {
+            id: 4,
+            name: "Sophie Turner",
+            latestMessage: "I've booked you for Thursday.",
+            messages: [
+                { sender: "user", content: "Sophie, I heard you're the best in town for combine repairs." },
+                { sender: "Sophie Turner", content: "Thank you for the compliment! How can I assist you?" },
+                { sender: "user", content: "My combine has been producing a weird noise. Can you take a look?" },
+                { sender: "Sophie Turner", content: "Definitely! I have an opening on Thursday, does that work for you?" },
+                { sender: "user", content: "Perfect, see you then!" },
+                { sender: "Sophie Turner", content: "I've booked you for Thursday." }
+            ]
+        }
+    ];
+
+
+    let showMessages: boolean = false;
+
+    function selectConversation(convo: Conversation) {
+        selectedConversation = convo;
+        showMessages = true;
     }
-];
+
+    function backToList() {
+        showMessages = false;
+    }
+
+    let newMessage: string = '';  // <-- For tracking the new message input
+
+    function sendMessage() {
+        if (newMessage.trim() && selectedConversation) {
+            selectedConversation.messages.push({
+                sender: 'user',
+                content: newMessage.trim()
+            });
+            newMessage = '';
+        }
+    }
 
 
-let showMessages: boolean = false;
-
-function selectConversation(convo: Conversation) {
-    selectedConversation = convo;
-    showMessages = true;
-}
-
-function backToList() {
-    showMessages = false;
-}
 </script>
 
 <style>
@@ -98,6 +112,14 @@ function backToList() {
                         </p>
                     </div>
                 {/each}
+                <!-- New Message Input UI -->
+                <div class="bg-white rounded-lg shadow-lg p-5 mt-5 flex items-center">
+                    <input bind:value={newMessage} class="flex-grow p-2 rounded-md border" placeholder="Type a message..." />
+                    <button on:click={sendMessage} class="ml-2 px-3 py-2 bg-green-500 text-white rounded-md flex items-center">
+                        <i class="fas fa-paper-plane mr-2"></i>  <!-- Font Awesome send icon -->
+                        Send
+                    </button>
+                </div>
             </div>
         {:else}
             <!-- Conversations List in a Card Style -->
