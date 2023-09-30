@@ -103,7 +103,7 @@
         {#if showMessages}
             <!-- Message Details in a Card Style -->
             <div class="bg-white rounded-lg shadow-lg p-5 mb-5">
-                <button class="mb-4 text-blue-500" on:click={backToList}>Back to Conversations</button>
+                <button class="mb-4 text-green-500" on:click={backToList}>Back to Conversations</button>
                 <h2 class="text-xl font-bold mb-4">{selectedConversation.name}</h2>
                 {#each selectedConversation.messages as message}
                     <div class={`mb-3 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}>
