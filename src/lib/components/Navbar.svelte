@@ -1,12 +1,3 @@
-<script lang="ts">
-    import { createEventDispatcher } from 'svelte';
-    const dispatch = createEventDispatcher<{ navigate: { page: string } }>();
-
-    function navigateTo(page: string) {
-        dispatch('navigate', { page });
-    }
-</script>
-
 <style>
     /* Styling for the navbar */
     .navbar {
@@ -19,19 +10,19 @@
 </style>
 
 <div class="navbar fixed bottom-0 left-0 w-full z-10 flex items-center justify-around p-4">
-    <button class="nav-icon" on:click={() => navigateTo('search')}>
+    <a href="/" class="nav-icon">
         <i class="fas fa-search"></i>
-    </button>
-    <button class="nav-icon" on:click={() => navigateTo('add')}>
+    </a>
+    <button class="nav-icon">
         <i class="fas fa-plus"></i>
     </button>
-    <button class="nav-icon" on:click={() => navigateTo('profile')}>
+    <a href="/profile" class="nav-icon">
         <i class="fas fa-user"></i>
-    </button>
-    <button class="nav-icon" on:click={() => navigateTo('inbox')}>
+    </a>
+    <a href="/inbox" class="nav-icon">
         <i class="fas fa-envelope"></i>
-    </button>
-    <button class="nav-icon" on:click={() => navigateTo('settings')}>
+    </a>
+    <a href="/settings" class="nav-icon">
         <i class="fas fa-cog"></i>
-    </button>
+    </a>
 </div>
