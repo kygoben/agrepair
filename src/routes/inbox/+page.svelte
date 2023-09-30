@@ -112,11 +112,13 @@
                         </p>
                     </div>
                 {/each}
-                <!-- New Message Input UI -->
-                <div class="bg-white rounded-lg shadow-lg p-5 mt-5 flex items-center">
+            </div>
+            <!-- New Message Input UI -->
+            <div class="bg-white rounded-lg shadow-lg p-5 mt-5">
+                <div class="mb-2 flex items-center">
                     <input bind:value={newMessage} class="flex-grow p-2 rounded-md border" placeholder="Type a message..." />
-                    <button on:click={sendMessage} class="ml-2 px-3 py-2 bg-green-500 text-white rounded-md flex items-center">
-                        <i class="fas fa-paper-plane mr-2"></i>  <!-- Font Awesome send icon -->
+                    <button on:click={sendMessage} class="ml-2 px-2 py-1 bg-green-500 text-white rounded-md flex items-center">
+                        <i class="fas fa-paper-plane mr-1 text-sm"></i>  <!-- Font Awesome send icon with smaller font size -->
                         Send
                     </button>
                 </div>
