@@ -1,5 +1,5 @@
+@import "font-awesome/css/font-awesome.min.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import "font-awesome/css/font-awesome.min.css";
