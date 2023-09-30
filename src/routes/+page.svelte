@@ -41,7 +41,7 @@ function handleNavigation(event: CustomEvent<{ page: string }>) {
 
 <div class="p-4 bg-gray-100 h-full min-h-screen content">
     <div class="max-w-screen-lg mx-auto">
-      <input type="text" placeholder="🔍 Search Contractors..." class="p-3 bg-white border rounded-full mb-6 w-full shadow-sm focus:outline-none focus:border-indigo-300">
+      <input type="text" placeholder="🔍 Search Contractors..." class="p-3 bg-white border rounded-full mb-6 w-full shadow-sm focus:outline-none focus:border-green-300">
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {#each contractors as contractor}
@@ -55,7 +55,7 @@ function handleNavigation(event: CustomEvent<{ page: string }>) {
                           <span class="text-yellow-400 mr-2">⭐ {contractor.rating}</span>
                           <span class="text-gray-600 text-sm">({contractor.rating} Rating)</span>
                       </div>
-                      <button class="bg-indigo-500 hover:bg-indigo-600 text-white p-2 rounded-full w-full text-center">Contact</button>
+                      <button class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-full w-full text-center">Contact</button>
                   </div>
               </div>
           {/each}
