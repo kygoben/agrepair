@@ -1,7 +1,18 @@
 <script lang="ts">
     import Navbar from "$lib/components/Navbar.svelte";
+    import type { PageData } from "../$types";
+    import { goto } from "$app/navigation";
 
     let notificationsEnabled = true;
+
+    export let data: PageData;
+    let { supabase } = data;
+    $: ({ supabase } = data);
+
+    const signOut = async () => {
+      await supabase.auth.signOut();
+      goto('/auth/login');
+    }
 </script>
 
 <style>
@@ -48,6 +59,8 @@
         <!-- Account Settings -->
         <div class="bg-white rounded-lg shadow-lg p-5 mb-5">
             <h2 class="text-xl font-bold mb-4">Account Settings</h2>
+            <button class="text-blue-700 mb-3" on:click={signOut}>Sign Out</button>
+            <br>
             <button class="text-green-500 mb-3">Change Password</button>
             <br />
             <button class="text-red-500">Delete Account</button>
