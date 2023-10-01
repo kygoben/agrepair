@@ -8,6 +8,13 @@
     function closeMenu() {
         isMenuOpen = false;
     }
+
+    let isContractorMode = true; // default mode
+
+    function toggleMode() {
+        isContractorMode = !isContractorMode;
+    }
+
 </script>
 
 <style>
@@ -69,6 +76,56 @@
     .menu-option.button-style .button-icon {
         color: white;
     }
+
+    .switch {
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+}
+
+.switch input {
+    display: none;
+}
+
+.switch-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 15px;
+    transition: 0.4s;
+}
+
+.switch-slider:before {
+    position: absolute;
+    content: "\f0ad";  /* This is the Unicode value for the Font Awesome wrench icon */
+    font-family: "Font Awesome 5 Free";  /* Specify the Font Awesome font family */
+    font-weight: 900;  /* Font weight for the solid icons */
+    font-size: 14px;  /* Adjust the size of the icon as necessary */
+    height: 24px;
+    width: 24px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.4s;
+}
+
+
+.switch input:checked + .switch-slider {
+    background-color: #2DC891;
+}
+
+.switch input:checked + .switch-slider:before {
+    transform: translateX(50px);
+}
+
 </style>
 
 <div class="navbar fixed bottom-0 left-0 w-full z-10 flex items-center justify-around p-4">
@@ -87,6 +144,11 @@
     <a href="/settings" class="nav-icon">
         <i class="fas fa-cog"></i>
     </a>
+    <div class="switch">
+        <input type="checkbox" id="modeToggle" on:click={toggleMode}>
+        
+        <label for="modeToggle" class="switch-slider"></label>
+    </div>
 </div>
 
 <div class="menu pb-20" class:open={isMenuOpen}>
