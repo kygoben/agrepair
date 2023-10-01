@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
   import Navbar from "$lib/components/Navbar.svelte";
 
   import type { PageServerData, PageData } from "./$types";
@@ -22,6 +23,11 @@
       .eq('user_id', uid)
       .eq('equipment_id', equipmentId);
   }
+
+  async function signOut() {
+    await supabase.auth.signOut();
+    goto('/auth/login');
+  }
 </script>
 
 <div class="p-4 bg-gray-100 h-full min-h-screen">
@@ -29,7 +35,7 @@
     class="max-w-screen-sm mx-auto bg-white rounded-lg shadow-md p-6 space-y-8"
   >
     <!-- User Profile Information -->
-    <div class="flex items-center space-x-4">
+    <div class="flex items-center space-x-4" on:click={signOut}>
       <img
         src={data.props.url}
         alt={profile.name}
