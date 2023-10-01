@@ -88,22 +88,34 @@
             newMessage = '';
         }
     }
-
-
 </script>
 
 <style>
     .content {
         padding-bottom: 80px; /* Adjust based on the height of the navbar */
     }
+
+    /* Style for the "Back to Conversations" button */
+    .back-button {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    .back-button:hover {
+        background-color: #449e67; /* Darker green on hover */
+    }
 </style>
-    
+
 <div class="p-4 bg-gray-100 h-full min-h-screen content">
     <div class="mx-auto max-w-screen-sm lg:max-w-screen-lg">
         {#if showMessages}
+            <button class="mb-4 back-button rounded-lg bg-green-500" on:click={backToList}>Back to Conversations</button>
             <!-- Message Details in a Card Style -->
             <div class="bg-white rounded-lg shadow-lg p-5 mb-5">
-                <button class="mb-4 text-green-500" on:click={backToList}>Back to Conversations</button>
+                
                 <h2 class="text-xl font-bold mb-4">{selectedConversation.name}</h2>
                 {#each selectedConversation.messages as message}
                     <div class={`mb-3 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}>
