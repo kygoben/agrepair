@@ -1,9 +1,15 @@
 <script lang="ts">
     import Navbar from "$lib/components/Navbar.svelte";
+    import type { PageData } from "../../../.svelte-kit/types/src/routes/$types";
+    import { currentUser } from "../auth/userStore";
+    export let data: PageData;
+
+    let { supabase } = data;
+    $: ({ supabase } = data);
 
     type Message = {
-    sender: string;
-    content: string;
+        sender: string;
+        content: string;
     };
 
     type Conversation = {
@@ -12,7 +18,16 @@
         avatar: string;
         latestMessage: string;
         messages: Message[];
+        user: User;
     };
+
+    type User = {
+        name: string;
+        address: string;
+        id: string;
+        created_at: string;
+    }
+    const currUser: User = $currentUser as unknown as User;
 
     let selectedConversation: Conversation | null = null;
 
@@ -28,7 +43,13 @@
                 { sender: "John Doe", content: "Ah, yes! I remember. Would tomorrow work for you?" },
                 { sender: "user", content: "Tomorrow sounds perfect. Let me know your preferred time." },
                 { sender: "John Doe", content: "I'll be there around 3pm, hope that's fine?" }
-            ]
+            ],
+            user: {
+                name: "lol",
+                address: "lol@email.com",
+                id: "4",
+                created_at: "x"
+            }
         },
         {
             id: 2,
@@ -40,7 +61,13 @@
                 { sender: "Anna Smith", content: "Thank you! I'm glad you're satisfied with the repair." },
                 { sender: "user", content: "Could you please send the invoice for the repair?" },
                 { sender: "Anna Smith", content: "Sure, I'll send the invoice tonight." }
-            ]
+            ],
+            user: {
+                name: "lol",
+                address: "lol@email.com",
+                id: "4",
+                created_at: "x"
+            }
         },
         {
             id: 3,
@@ -52,7 +79,13 @@
                 { sender: "Mike Harrison", content: "Absolutely. Are you facing an issue with a specific equipment?" },
                 { sender: "user", content: "Yes, my backhoe loader has been acting up. Do you do on-site inspections?" },
                 { sender: "Mike Harrison", content: "Yes, that's included in our services." }
-            ]
+            ],
+            user: {
+                name: "lol",
+                address: "lol@email.com",
+                id: "4",
+                created_at: "x"
+            }
         },
         {
             id: 4,
@@ -66,12 +99,21 @@
                 { sender: "Sophie Turner", content: "Definitely! I have an opening on Thursday, does that work for you?" },
                 { sender: "user", content: "Perfect, see you then!" },
                 { sender: "Sophie Turner", content: "I've booked you for Thursday." }
-            ]
+            ],
+            user: {
+                name: "lol",
+                address: "lol@email.com",
+                id: "4",
+                created_at: "x"
+            }
         }
     ];
 
 
     let showMessages: boolean = false;
+    let showAddChatPage: boolean = false;
+    let searchUser = '';
+    let searchResults: User[] = [];
 
     function selectConversation(convo: Conversation) {
         selectedConversation = convo;
@@ -82,15 +124,56 @@
         showMessages = false;
     }
 
+    function openAddChatPage() {
+        showAddChatPage = true;
+    }
+
+    function backToConversations() {
+        showAddChatPage = false;
+    }
+
+    async function searchUsersByText() {
+        // Perform a Supabase query to search for users by text
+        const { data, error } = await supabase
+            .from('Users')
+            .select('*')
+            .ilike('name', `%${searchUser}%`);
+
+        if (error) {
+            console.error('Error searching for users:', error);
+        } else {
+            // Update the searchResults variable with the search results
+            searchResults = data;
+        }
+    }
+
+
+    function startChatWithUser(user: User) {
+        // Implement the logic to start a chat with the selected user here.
+        // You can add the selected user to your list of conversations or perform any other necessary actions.
+        searchUser = '';
+        conversations.push({
+            id: conversations[conversations.length - 1].id + 1,
+            name: user.name,
+            avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDwmG52pVI5JZfn04j9gdtsd8pAGbqjjLswg&usqp=CAU",
+            latestMessage: "",
+            messages: [],
+            user: user
+        })
+    }
+
     let newMessage: string = '';  // <-- For tracking the new message input
 
     function sendMessage() {
         if (newMessage.trim() && selectedConversation) {
-            selectedConversation.messages.push({
-                sender: 'user',
-                content: newMessage.trim()
-            });
-            newMessage = '';
+            if (currUser) {
+                selectedConversation.messages.push({
+                    sender: currUser.name,
+                    content: newMessage.trim()
+                });
+                selectedConversation.latestMessage = newMessage.trim();
+                newMessage = '';
+            }
         }
     }
 </script>
@@ -130,9 +213,9 @@
                 
                 <h2 class="text-xl font-bold mb-4">{selectedConversation.name}</h2>
                 {#each selectedConversation.messages as message}
-                    <div class={`mb-3 ${message.sender === 'user' ? 'text-right flex flex-row-reverse items-start' : 'text-left flex flex-row items-start'}`}>
+                    <div class={`mb-3 ${message.sender === currUser.name ? 'text-right flex flex-row-reverse items-start' : 'text-left flex flex-row items-start'}`}>
                         <img class="message-avatar ml-3 mr-3 m-2" src={selectedConversation.avatar} alt="{message.sender} avatar" />
-                        <p class={`inline-block p-2 mb-6 rounded-lg shadow-md ${message.sender === 'user' ? 'bg-green-500 text-white' : 'bg-white'}`}>
+                        <p class={`inline-block p-2 mb-6 rounded-lg shadow-md ${message.sender === currUser.name ? 'bg-green-500 text-white' : 'bg-white'}`}>
                             {message.content}
                         </p>
                     </div>
@@ -148,6 +231,27 @@
                     </button>
                 </div>
             </div>
+        <!-- Add Chat Page -->
+        {:else if showAddChatPage}
+            <div class="p-4 bg-gray-100 h-full min-h-screen content">
+                <div class="mx-auto max-w-screen-sm lg:max-w-screen-lg">
+                    <!-- Back to Conversations Button -->
+                    <button class="mb-4 back-button rounded-full bg-green-500" on:click={backToConversations}>Back</button>
+                    <!-- Search Bar -->
+                    <div class="bg-white rounded-lg shadow-lg p-5 mb-5">
+                        <input bind:value={searchUser} class="w-full p-2 rounded-md border" placeholder="Search for a user by name..." />
+                        <button class="bg-green-500 text-white rounded-md py-2 px-4 mt-2" on:click={searchUsersByText}>Search</button>
+                    </div>
+                    <!-- User Search Results -->
+                    <div class="bg-white rounded-lg shadow-lg p-5">
+                        {#each searchResults as user}
+                            <div class="cursor-pointer px-4 py-3 hover:bg-gray-200 border-b last:border-0" on:click={() => startChatWithUser(user)}>
+                                <strong>{user.name}</strong>
+                            </div>
+                        {/each}
+                    </div>
+                </div>
+            </div>
         {:else}
             <!-- Conversations List in a Card Style -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -157,6 +261,11 @@
                         <p class="text-sm text-gray-500">{convo.latestMessage}</p>
                     </div>
                 {/each}
+                <!-- Add Chat Card -->
+                <div class="cursor-pointer px-4 py-3 hover:bg-gray-200 border-b last:border-0" on:click={openAddChatPage}>
+                    <strong>Add Chat</strong>
+                    <p class="text-sm text-gray-500">Start a new conversation</p>
+                </div>
             </div>
         {/if}
     </div>
