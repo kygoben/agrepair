@@ -71,7 +71,7 @@
         margin: 8px; /* Spacing around each button */
     }
     .menu-option.button-style:hover {
-        background-color: #2DC891; /* A slightly darker green for hover effect */
+        background-color: #4caf50; /* A slightly darker green for hover effect */
     }
     .menu-option.button-style .button-icon {
         color: white;
