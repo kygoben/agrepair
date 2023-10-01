@@ -24,6 +24,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@supabase/auth-helpers-sveltekit": "^0.10.3",
 		"@supabase/supabase-js": "^2.37.0",
 		"font-awesome": "^4.7.0"
 	}

@@ -1,13 +1,22 @@
 <script lang="ts">
-    let email = '';
-    let password = '';
-    let name = '';
-    let address = '';
+  import type { PageData } from "../../$types";
 
-    function handleLogin() {
-        // Implement your login logic here
-        // You can access the entered email, password, name, and address using the respective variables
-    }
+  export let data: PageData;
+
+  let { supabase } = data;
+  $: ({ supabase } = data);
+
+  let email = '';
+  let password = '';
+  let name = '';
+  let address = '';
+
+  const handleSignUp = async () => {
+    const {data, error} = await supabase.auth.signUp({
+      email,
+      password
+    });
+  }
 </script>
 
 <style>
@@ -29,7 +38,7 @@
                 <label for="password" class="block mb-2 text-sm font-semibold">Password:</label>
                 <input type="password" id="password" bind:value={password} class="w-full p-2 rounded border shadow-sm" placeholder="Password" />
             </div>
-            <button class="w-full py-2 bg-green-500 text-white rounded-md hover:bg-green-600" on:click={handleLogin}>Log In</button>
+            <button class="w-full py-2 bg-green-500 text-white rounded-md hover:bg-green-600" on:click={handleSignUp}>Log In</button>
             <p class="text-center mt-4 text-sm">
                 Don't have an account? <a href="/auth/register" class="text-green-600">Sign up</a>.
             </p>
