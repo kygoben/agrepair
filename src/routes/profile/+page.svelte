@@ -42,6 +42,12 @@
 
 </script>
 
+<style>
+    .container {
+        margin-bottom: 60px;
+    }
+</style>
+
 <div class="p-4 bg-gray-100 h-full min-h-screen">
     <div class="max-w-screen-sm mx-auto bg-white rounded-lg shadow-md p-6 space-y-8">
         <!-- User Profile Information -->
@@ -69,7 +75,7 @@
         <!-- Contracts List -->
         <div>
             <h2 class="text-xl font-semibold mb-4">Contracts</h2>
-            <div class="divide-y divide-gray-200">
+            <div class="p-4 bg-gray-100 container">
                 {#each contracts as contract}
                     <div class="py-2 flex flex-col md:flex-row justify-between items-start md:items-center">
                         <div class="mb-2 md:mb-0">
@@ -90,6 +96,8 @@
                             View Details
                         </button>
                     </div>
+                    <!-- Horizontal Black Line to Seperate each Contract -->
+                    <div class="border-b border-gray-400 my-4"></div>
                 {/each}
             </div>
         </div>
