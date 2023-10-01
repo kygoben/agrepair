@@ -101,7 +101,7 @@
 
 .switch-slider:before {
     position: absolute;
-    content: "\f0ad";  /* This is the Unicode value for the Font Awesome wrench icon */
+    content: "\f7d9";  /* This is the Unicode value for the Font Awesome wrench icon */
     font-family: "Font Awesome 5 Free";  /* Specify the Font Awesome font family */
     font-weight: 900;  /* Font weight for the solid icons */
     font-size: 14px;  /* Adjust the size of the icon as necessary */
@@ -119,7 +119,7 @@
 
 
 .switch input:checked + .switch-slider {
-    background-color: #2DC891;
+    background-color: #4caf50;
 }
 
 .switch input:checked + .switch-slider:before {
