@@ -96,19 +96,29 @@
         <div>
             <h2 class="text-xl font-semibold mb-4">Contracts</h2>
             <div class="p-4 bg-gray-100 rounded-lg container">
-                {#each contracts as contract}
+                {#each data.props.User_repair_contracts as contract}
                     <div class="py-2 flex flex-col md:flex-row justify-between items-start md:items-center">
                         <div class="mb-2 md:mb-0">
                             <p class="font-medium">
-                                {#if contract.contractor}
-                                    {contract.contractor}
+                                {#if contract.contractor_id}
+                                    {contract.contractor_id.name}
                                 {:else}
                                     <span class="text-red-500">No contractor selected</span>
                                 {/if}
                             </p>
-                            <p class="text-sm text-gray-500">{contract.equipment}</p>
-                            <p class="text-xs text-gray-400">{contract.repairType}</p>
-                            <p class="text-xs text-gray-400">Status: {contract.status}</p>
+                            <p class="text-sm text-gray-500">{contract.repair_id.equipment_id.year + " " + contract.repair_id.equipment_id.make + " " + contract.repair_id.equipment_id.model}</p>
+                            <p class="text-xs text-gray-400">{contract.repair_id.description}</p>
+                            <p class="text-xs text-gray-400">Status: {#if contract.completed}
+                                Completed
+                            {:else if contract.contractor_id}
+                                Ongoing
+                            {:else}
+                                Awaiting Contractor
+                            {/if}</p>
+
+                            <!-- {:else}
+                                <span class="text-red-500">No contractor selected</span>
+                            {/if}</p> -->
                         </div>
                         
                         <!-- View Details Button -->
