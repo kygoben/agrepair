@@ -96,7 +96,7 @@
         <i class="fas fa-file-contract button-icon"></i>
     </div>
     <div class="menu-option button-style bg-green-500" on:click={closeMenu}>
-        <span class="button-text">Add Equipment</span>
+        <a class="button-text" href="/equipment/add">Add Equipment</a>
         <i class="fas fa-tools button-icon"></i>
     </div>
     <div class="menu-option mr-2" on:click={closeMenu}>
