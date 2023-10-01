@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { PageData } from "../../$types";
   import { goto } from "$app/navigation";
+  import { currentUser } from '../userStore';
 
   export let data: PageData;
 
@@ -15,6 +16,8 @@
       email,
       password
     });
+
+    currentUser.set(data.user);
 
     if (error) {
       console.log(error);
