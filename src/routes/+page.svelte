@@ -47,7 +47,51 @@
             ratingCount: 11,
             image: "https://www.cnhindustrial.com/en-US/brands/_jcr_content/root/responsivegrid_545c/image.img.jpg/1622551910552.png"
         },
-        // Add more contractors as needed
+        {
+        id: 6,
+        name: "Emma Thompson",
+        specialty: "John Deere Tractors",
+        location: "Washington, USA",
+        rating: 4.8,
+        ratingCount: 16,
+        image: "https://example.com/volvo-construction.jpg"  // You'll need to replace this with an actual image URL
+    },
+    {
+        id: 7,
+        name: "Liam Walker",
+        specialty: "CAT Mini Excavators",
+        location: "Georgia, USA",
+        rating: 4.3,
+        ratingCount: 9,
+        image: "https://example.com/kubota-mini.jpg"  // You'll need to replace this with an actual image URL
+    },
+    {
+        id: 8,
+        name: "Olivia Brown",
+        specialty: "John Deere Combines",
+        location: "Nevada, USA",
+        rating: 4.9,
+        ratingCount: 19,
+        image: "https://example.com/case-backhoes.jpg"  // You'll need to replace this with an actual image URL
+    },
+    {
+        id: 9,
+        name: "Noah White",
+        specialty: "John Deere Tractors",
+        location: "Colorado, USA",
+        rating: 4.5,
+        ratingCount: 13,
+        image: "https://example.com/jcb-loaders.jpg"  // You'll need to replace this with an actual image URL
+    },
+    {
+        id: 10,
+        name: "Ava Johnson",
+        specialty: "CAT Excavators",
+        location: "Oregon, USA",
+        rating: 4.6,
+        ratingCount: 17,
+        image: "https://example.com/hyundai-excavators.jpg"  // You'll need to replace this with an actual image URL
+    }
     ];
 
     let currentPage: string = 'search'; // Default view
@@ -57,6 +101,12 @@
     }
 
     let contractorMode: boolean = false; // Default: toggle off
+
+    let searchTerm: string = '';
+
+    $: filteredContractors = contractors.filter(contractor =>
+        contractor.specialty.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
 </script>
 
@@ -68,75 +118,16 @@
     .content {
         padding-bottom: 80px; /* Adjust depending on the height of your navbar to prevent overlap */
     }
-
-    .toggle-switch {
-      width: 50px;
-      height: 25px;
-      position: relative;
-      border-radius: 15px;
-      background-color: #ccc;
-      cursor: pointer;
-      transition: background-color 0.3s;
-  }
-
-  .toggle-switch-checkbox {
-      display: none;
-  }
-
-  .toggle-switch-checkbox:checked + .toggle-switch-slider {
-      left: 25px;
-  }
-
-  .toggle-switch-slider {
-      position: absolute;
-      width: 25px;
-      height: 25px;
-      left: 0;
-      top: 0;
-      background-color: white;
-      border-radius: 50%;
-      transition: left 0.3s;
-  }
-
-  .toggle-switch-checkbox:checked + .toggle-switch-slider {
-      background-color: #4caf50;
-  }
-
-    .toggle-icon {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 0.7rem;
-        color: #555;
-    }
-
-    .toggle-switch-checkbox:checked + .toggle-switch-slider .fa-user {
-        display: none;
-    }
-
-    .toggle-switch-checkbox:not(:checked) + .toggle-switch-slider .fa-tools {
-        display: none;
-    }
 </style>
 
 <div class="p-4 bg-gray-100 h-full min-h-screen content">
     <div class="max-w-screen-lg mx-auto">
         <div class="flex items-center justify-between mb-6">
-            <input type="text" placeholder="🔍 Search Contractors..." class="flex-grow p-3 bg-white border rounded-full shadow-sm focus:outline-none focus:border-green-300 mr-4">
-            
-            <!-- Toggle switch -->
-            <label class="toggle-switch">
-                <input bind:checked={contractorMode} type="checkbox" class="toggle-switch-checkbox">
-                <span class="toggle-switch-slider">
-                    <i class="fas fa-user toggle-icon"></i>
-                    <i class="fas fa-tools toggle-icon"></i>
-                </span>
-            </label>
+            <input bind:value={searchTerm} type="text" placeholder="🔍 Search Contractors..." class="flex-grow p-3 bg-white border rounded-full shadow-sm focus:outline-none focus:border-green-300 mr-4">
         </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {#each contractors as contractor}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {#each filteredContractors as contractor}
               <div class="bg-white rounded-lg overflow-hidden card-shadow">
                   <img src="{contractor.image}" alt="{contractor.name}" class="w-full h-48 object-cover">
                   <div class="p-4">
