@@ -9,6 +9,7 @@
           specialty: "CAT Heavy Equipment",
           location: "Texas, USA",
           rating: 4.5,
+          ratingCount: 10,
           image: "https://i.ytimg.com/vi/v8lAZZcUEjw/maxresdefault.jpg"
       },
       {
@@ -17,6 +18,7 @@
           specialty: "John Deere Tractors",
           location: "California, USA",
           rating: 4.7,
+          ratingCount: 12,
           image: "https://ogden_images.s3.amazonaws.com/www.farm-news.com/images/2015/11/01014704/521745_1.jpg"
       },
       // ... Add more contractors as needed
@@ -53,7 +55,7 @@ function handleNavigation(event: CustomEvent<{ page: string }>) {
                       <p class="text-gray-500 text-sm mb-4 truncate"><strong>Location:</strong> {contractor.location}</p>
                       <div class="flex items-center mb-3">
                           <span class="text-yellow-400 mr-2">⭐ {contractor.rating}</span>
-                          <span class="text-gray-600 text-sm">({contractor.rating} Rating)</span>
+                          <span class="text-gray-500 text-sm">({contractor.ratingCount} reviews)</span>
                       </div>
                       <button class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-full w-full text-center">Contact</button>
                   </div>
