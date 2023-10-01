@@ -1,14 +1,24 @@
 <script lang="ts">
-    let name = '';
-    let email = '';
-    let address = '';
-    let password = '';
-    let confirmPassword = '';
+  import type { PageData } from "../../$types";
+  export let data: PageData;
 
-    function handleRegister() {
-        // Implement your registration logic here
-        // You can access the entered name, email, address, password, and confirmPassword using the respective variables
-    }
+  let { supabase } = data;
+  $: ({ supabase } = data);
+  let name = '';
+  let email = '';
+  let address = '';
+  let password = '';
+  let confirmPassword = '';
+
+  const handleRegister = async () => {
+    const {data, error} = await supabase.auth.signUp({
+      email,
+      password
+    });
+
+    console.log(data);
+    console.log(error);
+  }
 </script>
 
 <style>
