@@ -1,50 +1,123 @@
 <script lang="ts">
-    import Navbar from "$lib/components/Navbar.svelte";
+  import type { PageData } from "./$types";
+  import Navbar from "$lib/components/Navbar.svelte";
 
-    let equipmentToAdd = {
-        make: "",
-        model: "",
-        year: ""
-    };
+  export let data: PageData;
+  let { supabase, makes, models, session } = data;
+  $: ({ session } = data);
+  $: ({ supabase } = data);
+  $: ({ makes } = data);
+  $: ({ models } = data);
 
-    function addEquipment() {
-        // Logic to add the equipment to the user's list
-    }
+  let make = "";
+  let model = "";
+  let year = new Date().getFullYear();
+
+  $: filteredMakes = makes.filter(m => {
+    const a = m.toLowerCase();
+    const b = make.toLowerCase();
+
+    return a.includes(b) && a !== b;
+  });
+  $: filteredModels = models.filter(m => {
+    const a = m.toLowerCase();
+    const b = model.toLowerCase();
+
+    return a.includes(b) && a !== b;
+  });
+
+  async function addEquipment() {
+    const { data } = await supabase
+      .from('Equipment')
+      .insert([{ year, make, model }])
+      .select();
+    const {id} = (data || [])[0];
+
+    await supabase
+      .from('User_owns_equipment')
+      .insert([{
+        equipment_id: id,
+        user_id: session!.user.id
+      }]);
+  }
 </script>
 
 <style>
-    /* You can expand upon these styles as needed. */
-    input, select {
-        display: block;
-        width: 100%;
-        padding: 8px 16px;
-        margin-bottom: 16px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-    }
-    label {
-        display: block;
-        margin-bottom: 8px;
-    }
+  input, ul.dropdown {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  ul.dropdown {
+    margin: 0;
+    padding: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    position: relative;
+    z-index: 10;
+    background-color: #fff;
+  }
+  li {
+    padding: 8px;
+    border-bottom: 1px solid #e5e5e5;
+    cursor: pointer;
+  }
+  li:hover {
+    background-color: #f5f5f5;
+  }
+  button {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    margin-top: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #45a049;
+  }
 </style>
 
 <div class="p-4 bg-gray-100 h-full min-h-screen">
-    <div class="max-w-screen-sm mx-auto bg-white rounded-lg shadow-md p-6 space-y-8">
-        <h1 class="text-2xl font-bold">Add Equipment</h1>
-        <form on:submit|preventDefault={addEquipment}>
-            <label for="make">Make</label>
-            <input id="make" bind:value={equipmentToAdd.make} required />
+  <div class="max-w-screen-sm mx-auto bg-white rounded-lg shadow-md p-6 space-y-8">
+    <h1 class="text-2xl font-bold">Add Equipment</h1>
+    <form on:submit|preventDefault={addEquipment}>
+      <label for="make">Make</label>
+      <input id="make" bind:value={make} required />
+      {#if make.length > 0}
+        <ul class="dropdown">
+          {#each filteredMakes as item (item)}
+            <li on:click={() => (make = item)}>{item}</li>
+          {/each}
+        </ul>
+      {/if}
 
-            <label for="model">Model</label>
-            <input id="model" bind:value={equipmentToAdd.model} required />
+      <label for="model">Model</label>
+      <input id="model" bind:value={model} required />
+      {#if model.length > 0}
+        <ul class="dropdown">
+          {#each filteredModels as item (item)}
+            <li on:click={() => (model = item)}>{item}</li>
+          {/each}
+        </ul>
+      {/if}
 
-            <label for="year">Year</label>
-            <input type="number" id="year" bind:value={equipmentToAdd.year} required />
+      <label for="year">Year</label>
+      <input type="number" id="year" bind:value={year} required />
 
-            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50">
-                Add Equipment
-            </button>
-        </form>
-    </div>
-    <Navbar />
+      <button type="submit">
+        Add Equipment
+      </button>
+    </form>
+  </div>
+  <Navbar />
 </div>
