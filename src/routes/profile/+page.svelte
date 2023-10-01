@@ -75,8 +75,12 @@
         <!-- Div the Centers in Width -->
         <div class="flex justify-sm">
             <!-- Button to Add New Piece of Equipment -->
-            <button class="bg-green-500 hover:bg-green-600 text-white text-base px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50">
+            <button class="bg-green-500 hover:bg-green-600 text-white text-base px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 mr-2">
                 Add Equipment
+            </button>
+            <!-- Edit Equipment -->
+            <button class="bg-gray-400 hover:bg-gray-300 text-white text-base px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50">
+                Edit Equipment
             </button>
         </div>
 
