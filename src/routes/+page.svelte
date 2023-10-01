@@ -30,7 +30,7 @@
         currentPage = event.detail.page;
     }
 
-    let toggleState: boolean = false; // Default: toggle off
+    let contractorMode: boolean = false; // Default: toggle off
 
 </script>
 
@@ -101,7 +101,7 @@
             
             <!-- Toggle switch -->
             <label class="toggle-switch">
-                <input bind:checked={toggleState} type="checkbox" class="toggle-switch-checkbox">
+                <input bind:checked={contractorMode} type="checkbox" class="toggle-switch-checkbox">
                 <span class="toggle-switch-slider">
                     <i class="fas fa-user toggle-icon"></i>
                     <i class="fas fa-tools toggle-icon"></i>
