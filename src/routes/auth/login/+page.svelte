@@ -33,7 +33,7 @@
             <h2 class="text-2xl font-semibold mb-4">Log in to Agrepair</h2>
             <div class="mb-4">
                 <label for="email" class="block mb-2 text-sm font-semibold">Email:</label>
-                <input type="email" id="email" bind:value={email} class="w-full p-2 rounded border shadow-sm" placeholder="Email" />
+                <input type="email" id="email" autocomplete="off" bind:value={email} class="w-full p-2 rounded border shadow-sm" placeholder="Email" />
             </div>
             <div class="mb-4">
                 <label for="password" class="block mb-2 text-sm font-semibold">Password:</label>
