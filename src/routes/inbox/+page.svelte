@@ -9,6 +9,7 @@
     type Conversation = {
         id: number;
         name: string;
+        avatar: string;
         latestMessage: string;
         messages: Message[];
     };
@@ -20,6 +21,7 @@
         {
             id: 1,
             name: "John Doe",
+            avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDwmG52pVI5JZfn04j9gdtsd8pAGbqjjLswg&usqp=CAU",
             latestMessage: "I'll be there around 3pm, hope that's fine?",
             messages: [
                 { sender: "user", content: "Hello John! We were discussing a repair for my tractor." },
@@ -31,6 +33,7 @@
         {
             id: 2,
             name: "Anna Smith",
+            avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDwmG52pVI5JZfn04j9gdtsd8pAGbqjjLswg&usqp=CAU",
             latestMessage: "Sure, I'll send the invoice tonight.",
             messages: [
                 { sender: "user", content: "Hey Anna, great job on the combine harvester!" },
@@ -42,6 +45,7 @@
         {
             id: 3,
             name: "Mike Harrison",
+            avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDwmG52pVI5JZfn04j9gdtsd8pAGbqjjLswg&usqp=CAU",
             latestMessage: "Yes, that's included in our services.",
             messages: [
                 { sender: "user", content: "Mike, does your repair service cover hydraulic issues?" },
@@ -53,6 +57,7 @@
         {
             id: 4,
             name: "Sophie Turner",
+            avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDwmG52pVI5JZfn04j9gdtsd8pAGbqjjLswg&usqp=CAU",
             latestMessage: "I've booked you for Thursday.",
             messages: [
                 { sender: "user", content: "Sophie, I heard you're the best in town for combine repairs." },
@@ -107,6 +112,13 @@
     .back-button:hover {
         background-color: #449e67; /* Darker green on hover */
     }
+
+    .message-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 </style>
 
 <div class="p-4 bg-gray-100 h-full min-h-screen content">
@@ -118,8 +130,9 @@
                 
                 <h2 class="text-xl font-bold mb-4">{selectedConversation.name}</h2>
                 {#each selectedConversation.messages as message}
-                    <div class={`mb-3 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}>
-                        <p class={`inline-block p-2 rounded-lg shadow-md ${message.sender === 'user' ? 'bg-green-500 text-white' : 'bg-white'}`}>
+                    <div class={`mb-3 ${message.sender === 'user' ? 'text-right flex flex-row-reverse items-start' : 'text-left flex flex-row items-start'}`}>
+                        <img class="message-avatar ml-3 mr-3 m-2" src={selectedConversation.avatar} alt="{message.sender} avatar" />
+                        <p class={`inline-block p-2 mb-6 rounded-lg shadow-md ${message.sender === 'user' ? 'bg-green-500 text-white' : 'bg-white'}`}>
                             {message.content}
                         </p>
                     </div>
