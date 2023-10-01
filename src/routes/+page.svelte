@@ -6,18 +6,18 @@
       {
           id: 1,
           name: "John Doe",
-          specialty: "John Deere Tractors",
+          specialty: "CAT Heavy Equipment",
           location: "Texas, USA",
           rating: 4.5,
-          image: "path_to_image_1.jpg"
+          image: "https://i.ytimg.com/vi/v8lAZZcUEjw/maxresdefault.jpg"
       },
       {
           id: 2,
           name: "Jane Smith",
-          specialty: "CAT Heavy Equipment",
+          specialty: "John Deere Tractors",
           location: "California, USA",
           rating: 4.7,
-          image: "path_to_image_2.jpg"
+          image: "https://ogden_images.s3.amazonaws.com/www.farm-news.com/images/2015/11/01014704/521745_1.jpg"
       },
       // ... Add more contractors as needed
   ];
