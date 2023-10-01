@@ -21,8 +21,8 @@ export const load: PageServerLoad = async ({ locals: { supabase } }) => {
   console.log(Users);
 
   let { data: User_owns_equipment, error: ownerEquip } = await supabase
-    .from("User_repair_contracts")
-    .select("*")
+    .from("User_owns_equipment")
+    .select("equipment_id(*)")
     .eq("user_id", uid);
 
   console.log(User_owns_equipment);

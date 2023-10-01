@@ -45,6 +45,7 @@
         }
     ];
 
+    data.props.User_owns_equipment
 </script>
 
 <style>
@@ -68,10 +69,10 @@
         <div>
             <h2 class="text-xl font-semibold mb-4">Equipment</h2>
             <div class="divide-y divide-gray-200">
-                {#each equipment as item}
+                {#each data.props.User_owns_equipment || [] as item}
                     <div class="py-2">
-                        <p><strong>{item.make} {item.model}</strong></p>
-                        <p class="text-sm text-gray-500">Year: {item.year}</p>
+                        <p><strong>{item.equipment_id.make} {item.equipment_id.model}</strong></p>
+                        <p class="text-sm text-gray-500">Year: {item.equipment_id.year}</p>
                     </div>
                 {/each}
             </div>
