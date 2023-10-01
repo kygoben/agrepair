@@ -1,7 +1,6 @@
 <script lang="ts">
     import Navbar from "$lib/components/Navbar.svelte";
 
-    // Hardcoded contractors list for demonstration purposes
     let contractors = [
         {
             id: 1,
@@ -21,7 +20,34 @@
             ratingCount: 12,
             image: "https://ogden_images.s3.amazonaws.com/www.farm-news.com/images/2015/11/01014704/521745_1.jpg"
         },
-        // ... Add more contractors as needed
+        {
+            id: 3,
+            name: "Mike Johnson",
+            specialty: "Komatsu Excavators",
+            location: "New York, USA",
+            rating: 4.2,
+            ratingCount: 8,
+            image: "https://www.leavittmachinery.com/images/default-source/service/maintenance-programs/planned-maintenance-service.jpg?sfvrsn=1b7212a3_4"
+        },
+        {
+            id: 4,
+            name: "Sarah Lee",
+            specialty: "Hitachi Machinery",
+            location: "Florida, USA",
+            rating: 4.6,
+            ratingCount: 15,
+            image: "https://www.hitachi.com/products/construction-machinery/global/images/photo1.jpg"
+        },
+        {
+            id: 5,
+            name: "David Wilson",
+            specialty: "CNH Tractors",
+            location: "Illinois, USA",
+            rating: 4.4,
+            ratingCount: 11,
+            image: "https://www.cnhindustrial.com/en-US/brands/_jcr_content/root/responsivegrid_545c/image.img.jpg/1622551910552.png"
+        },
+        // Add more contractors as needed
     ];
 
     let currentPage: string = 'search'; // Default view
