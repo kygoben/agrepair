@@ -141,9 +141,6 @@
     <a href="/inbox" class="nav-icon">
         <i class="fas fa-envelope"></i>
     </a>
-    <a href="/settings" class="nav-icon">
-        <i class="fas fa-cog"></i>
-    </a>
     <div class="switch">
         <input type="checkbox" id="modeToggle" on:click={toggleMode}>
         
