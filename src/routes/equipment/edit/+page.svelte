@@ -63,7 +63,7 @@
 
             <div class="flex space-x-4">
                 <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50">
-                    Update Equipment
+                    Update
                 </button>
                 <button type="button" on:click={deleteEquipment} class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50">
                     Delete Equipment
