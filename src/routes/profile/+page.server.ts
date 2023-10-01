@@ -1,13 +1,22 @@
 import type { PageServerLoad } from "./$types";
+import { redirect } from "@sveltejs/kit";
+
 export const load: PageServerLoad = async ({ locals: { supabase } }) => {
   let session = await supabase.auth.getSession();
+
+  if (!session) {
+    throw redirect(303, "/auth/login");
+  }
+
   console.log(session.data.session?.user.id);
-  const uid = session.data.session?.user.id;
+  const uid = session.data.session!.user.id;
 
   let { data: Users, error } = await supabase
     .from("Users")
     .select("*")
     .eq("id", uid);
+
+	let user = Users![0];
 
   console.log(Users);
 
@@ -26,11 +35,10 @@ export const load: PageServerLoad = async ({ locals: { supabase } }) => {
   console.log(User_repair_contracts);
 
   return {
-	props: {
-    Users,
-    User_owns_equipment,
-    User_repair_contracts,
-  }
+    props: {
+      user,
+      User_owns_equipment,
+      User_repair_contracts,
+    },
   };
-
 };
