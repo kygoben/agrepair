@@ -1,10 +1,11 @@
 <script lang="ts">
   import Navbar from "$lib/components/Navbar.svelte";
 
-  import type { PageServerData } from "./$types";
-  export let data: PageServerData;
+  import type { PageServerData, PageData } from "./$types";
+  export let data: PageServerData & PageData;
 
-  console.log(data.props.url);
+  $: ({props: { uid }} = data);
+  $: ({ supabase } = data);
 
   // Mock data
   let profile = {
@@ -14,39 +15,13 @@
     username: "@internationalharvester",
   };
 
-  let equipment = [
-    { make: "John Deere", model: "X300", year: 2022 },
-    { make: "Kubota", model: "BX23S", year: 2021 },
-  ];
-
-  let contracts = [
-    {
-      contractor: "Anna Smith",
-      status: "Ongoing",
-      equipment: "John Deere X300",
-      repairType: "Engine Maintenance",
-    },
-    {
-      contractor: null, // No contractor selected yet
-      status: "Awaiting Contractor",
-      equipment: "Kubota BX23S",
-      repairType: "Tire Replacement",
-    },
-    {
-      contractor: "Sophie Turner",
-      status: "Completed",
-      equipment: "John Deere X300",
-      repairType: "Oil Change",
-    },
-    {
-      contractor: "Jane Smith",
-      status: "Completed",
-      equipment: "Kubota BX23S",
-      repairType: "Transmission Repair",
-    },
-  ];
-
-  data.props.User_owns_equipment;
+  async function deleteEquipment(equipmentId: number) {
+    await supabase
+      .from('User_owns_equipment')
+      .delete()
+      .eq('user_id', uid)
+      .eq('equipment_id', equipmentId);
+  }
 </script>
 
 <div class="p-4 bg-gray-100 h-full min-h-screen">
@@ -71,12 +46,17 @@
       <h2 class="text-xl font-semibold mb-4">Equipment</h2>
       <div class="divide-y divide-gray-200">
         {#each data.props.User_owns_equipment || [] as item}
-          <div class="py-2">
-            <p>
-              <strong>{item.equipment_id.make} {item.equipment_id.model}</strong
-              >
-            </p>
-            <p class="text-sm text-gray-500">Year: {item.equipment_id.year}</p>
+          <div class="py-2 flex justify-between items-center">
+            <div>
+              <p>
+                <strong>{item.equipment_id.make} {item.equipment_id.model}</strong>
+              </p>
+              <p class="text-sm text-gray-500">Year: {item.equipment_id.year}</p>
+            </div>
+            <!-- Delete Equipment Button -->
+            <button on:click={() => deleteEquipment(item.equipment_id.id)} class="text-red-500 focus:outline-none">
+              <i class="fas fa-trash"></i>
+            </button>
           </div>
         {/each}
       </div>
@@ -89,13 +69,6 @@
         class="bg-green-500 hover:bg-green-600 text-white text-base px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 mr-2"
       >
         Add Equipment
-      </a>
-      <!-- Edit Equipment -->
-      <a
-        href="/equipment/edit"
-        class="bg-gray-400 hover:bg-gray-300 text-white text-base px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50"
-      >
-        Edit Equipment
       </a>
     </div>
 

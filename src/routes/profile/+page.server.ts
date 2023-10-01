@@ -8,42 +8,34 @@ export const load: PageServerLoad = async ({ locals: { supabase } }) => {
     throw redirect(303, "/auth/login");
   }
 
-  console.log(session.data.session?.user.id);
   const uid = session.data.session!.user.id;
 
-  let { data: Users, error } = await supabase
+  let { data: Users } = await supabase
     .from("Users")
     .select("*")
     .eq("id", uid);
 
 	let user = Users![0];
 
-  console.log(Users);
-
-  let { data: User_owns_equipment, error: ownerEquip } = await supabase
+  let { data: User_owns_equipment } = await supabase
     .from("User_owns_equipment")
     .select("equipment_id(*)")
     .eq("user_id", uid);
 
-  console.log(User_owns_equipment);
-
-  let { data: User_repair_contracts, error: repairContracts } = await supabase
+  let { data: User_repair_contracts } = await supabase
     .from("User_repair_contracts")
     .select("*, repair_id(*, equipment_id(*)), contractor_id(*)")
     .eq("user_id", uid);
 
-  console.log(User_repair_contracts);
-
   const url = await supabase.storage.from("pics").getPublicUrl(uid + ".jpg").data.publicUrl;
-
-  console.log(url);
 
   return {
     props: {
+      uid,
       user,
       User_owns_equipment,
       User_repair_contracts,
-	  url,
+	  url
     },
   };
 };
