@@ -70,12 +70,22 @@
                     </div>
                 {/each}
             </div>
+            
         </div>
+        <!-- Div the Centers in Width -->
+        <div class="flex justify-sm">
+            <!-- Button to Add New Piece of Equipment -->
+            <button class="bg-green-500 hover:bg-green-600 text-white text-base px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50">
+                Add Equipment
+            </button>
+        </div>
+
+        
 
         <!-- Contracts List -->
         <div>
             <h2 class="text-xl font-semibold mb-4">Contracts</h2>
-            <div class="p-4 bg-gray-100 container">
+            <div class="p-4 bg-gray-100 rounded-lg container">
                 {#each contracts as contract}
                     <div class="py-2 flex flex-col md:flex-row justify-between items-start md:items-center">
                         <div class="mb-2 md:mb-0">
