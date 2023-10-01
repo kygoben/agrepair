@@ -112,7 +112,7 @@
 <div class="p-4 bg-gray-100 h-full min-h-screen content">
     <div class="mx-auto max-w-screen-sm lg:max-w-screen-lg">
         {#if showMessages}
-            <button class="mb-4 back-button rounded-lg bg-green-500" on:click={backToList}>Back to Conversations</button>
+            <button class="mb-4 back-button rounded-full bg-green-500" on:click={backToList}>Back to Conversations</button>
             <!-- Message Details in a Card Style -->
             <div class="bg-white rounded-lg shadow-lg p-5 mb-5">
                 
