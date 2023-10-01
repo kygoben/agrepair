@@ -1,6 +1,9 @@
 <script lang="ts">
     import Navbar from "$lib/components/Navbar.svelte";
 
+    import type { PageServerData } from "./$types";
+    export let data: PageServerData;
+
     // Mock data
     let profile = {
         picture: "https://upload.wikimedia.org/wikipedia/commons/6/6e/John_Deere_portrait.jpg", // Placeholder image
@@ -54,7 +57,7 @@
         <div class="flex items-center space-x-4">
             <img src="{profile.picture}" alt="{profile.name}" class="w-24 h-24 rounded-full object-cover shadow-lg">
             <div>
-                <h1 class="text-2xl font-bold">{profile.name}</h1>
+                <h1 class="text-2xl font-bold">{data.props.user.name}</h1>
                 <p class="text-sm text-gray-500">{profile.username}</p>
             </div>
         </div>

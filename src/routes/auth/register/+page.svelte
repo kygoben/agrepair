@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import type { PageData } from "../../$types";
   export let data: PageData;
 
@@ -26,6 +27,8 @@
           name,
           id: data!.user!.id
         }]);
+
+      goto('/');
     }
   }
 </script>
