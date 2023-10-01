@@ -9,31 +9,6 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      Addresses: {
-        Row: {
-          address: string | null
-          created_at: string
-          id: string
-        }
-        Insert: {
-          address?: string | null
-          created_at?: string
-          id: string
-        }
-        Update: {
-          address?: string | null
-          created_at?: string
-          id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "Addresses_id_fkey"
-            columns: ["id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       Bids: {
         Row: {
           contract: string | null
@@ -67,6 +42,49 @@ export interface Database {
             foreignKeyName: "Bids_contractor_id_fkey"
             columns: ["contractor_id"]
             referencedRelation: "Contractors"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      chats: {
+        Row: {
+          created_at: string
+          id: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+        }
+        Relationships: []
+      }
+      chats_users: {
+        Row: {
+          chat_id: number
+          user_id: string | null
+        }
+        Insert: {
+          chat_id?: number
+          user_id?: string | null
+        }
+        Update: {
+          chat_id?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chats_users_chat_id_fkey"
+            columns: ["chat_id"]
+            referencedRelation: "chats"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chats_users_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "Users"
             referencedColumns: ["id"]
           }
         ]
@@ -134,6 +152,8 @@ export interface Database {
       }
       Messages: {
         Row: {
+          author_id: string | null
+          chat_id: number | null
           created_at: string
           id: string
           message: string | null
@@ -141,6 +161,8 @@ export interface Database {
           sender: string | null
         }
         Insert: {
+          author_id?: string | null
+          chat_id?: number | null
           created_at?: string
           id?: string
           message?: string | null
@@ -148,6 +170,8 @@ export interface Database {
           sender?: string | null
         }
         Update: {
+          author_id?: string | null
+          chat_id?: number | null
           created_at?: string
           id?: string
           message?: string | null
@@ -155,6 +179,18 @@ export interface Database {
           sender?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "Messages_author_id_fkey"
+            columns: ["author_id"]
+            referencedRelation: "Users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Messages_chat_id_fkey"
+            columns: ["chat_id"]
+            referencedRelation: "chats"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "Messages_recipient_fkey"
             columns: ["recipient"]
@@ -272,6 +308,34 @@ export interface Database {
           {
             foreignKeyName: "User_repair_contracts_user_id_fkey"
             columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      Users: {
+        Row: {
+          address: string | null
+          created_at: string
+          id: string
+          name: string | null
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          id: string
+          name?: string | null
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          id?: string
+          name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Users_id_fkey"
+            columns: ["id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
           }

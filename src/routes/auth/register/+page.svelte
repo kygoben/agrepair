@@ -16,8 +16,17 @@
       password
     });
 
-    console.log(data);
-    console.log(error);
+    if (error) {
+      console.log(error);
+    } else if (data) {
+      await supabase
+        .from('Users')
+        .insert([{
+          address,
+          name,
+          id: data!.user!.id
+        }]);
+    }
   }
 </script>
 
