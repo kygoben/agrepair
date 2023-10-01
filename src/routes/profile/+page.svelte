@@ -4,6 +4,8 @@
     import type { PageServerData } from "./$types";
     export let data: PageServerData;
 
+    console.log(data.props.url);
+
     // Mock data
     let profile = {
         picture: "https://upload.wikimedia.org/wikipedia/commons/6/6e/John_Deere_portrait.jpg", // Placeholder image
@@ -55,7 +57,7 @@
     <div class="max-w-screen-sm mx-auto bg-white rounded-lg shadow-md p-6 space-y-8">
         <!-- User Profile Information -->
         <div class="flex items-center space-x-4">
-            <img src="{profile.picture}" alt="{profile.name}" class="w-24 h-24 rounded-full object-cover shadow-lg">
+            <img src="{data.props.url}" alt="{profile.name}" class="w-24 h-24 rounded-full object-cover shadow-lg">
             <div>
                 <h1 class="text-2xl font-bold">{data.props.user.name}</h1>
                 <p class="text-sm text-gray-500">{profile.username}</p>

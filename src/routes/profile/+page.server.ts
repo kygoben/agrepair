@@ -34,11 +34,16 @@ export const load: PageServerLoad = async ({ locals: { supabase } }) => {
 
   console.log(User_repair_contracts);
 
+  const url = await supabase.storage.from("pics").getPublicUrl(uid + ".jpg").data.publicUrl;
+
+  console.log(url);
+
   return {
     props: {
       user,
       User_owns_equipment,
       User_repair_contracts,
+	  url,
     },
   };
 };
