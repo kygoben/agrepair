@@ -1,34 +1,37 @@
 <script lang="ts">
-  import Navbar from "$lib/components/Navbar.svelte";
+    import Navbar from "$lib/components/Navbar.svelte";
 
-  // Hardcoded contractors list for demonstration purposes
-  let contractors = [
-      {
-          id: 1,
-          name: "John Doe",
-          specialty: "CAT Heavy Equipment",
-          location: "Texas, USA",
-          rating: 4.5,
-          ratingCount: 10,
-          image: "https://i.ytimg.com/vi/v8lAZZcUEjw/maxresdefault.jpg"
-      },
-      {
-          id: 2,
-          name: "Jane Smith",
-          specialty: "John Deere Tractors",
-          location: "California, USA",
-          rating: 4.7,
-          ratingCount: 12,
-          image: "https://ogden_images.s3.amazonaws.com/www.farm-news.com/images/2015/11/01014704/521745_1.jpg"
-      },
-      // ... Add more contractors as needed
-  ];
+    // Hardcoded contractors list for demonstration purposes
+    let contractors = [
+        {
+            id: 1,
+            name: "John Doe",
+            specialty: "CAT Heavy Equipment",
+            location: "Texas, USA",
+            rating: 4.5,
+            ratingCount: 10,
+            image: "https://i.ytimg.com/vi/v8lAZZcUEjw/maxresdefault.jpg"
+        },
+        {
+            id: 2,
+            name: "Jane Smith",
+            specialty: "John Deere Tractors",
+            location: "California, USA",
+            rating: 4.7,
+            ratingCount: 12,
+            image: "https://ogden_images.s3.amazonaws.com/www.farm-news.com/images/2015/11/01014704/521745_1.jpg"
+        },
+        // ... Add more contractors as needed
+    ];
 
-  let currentPage: string = 'search'; // Default view
+    let currentPage: string = 'search'; // Default view
 
-function handleNavigation(event: CustomEvent<{ page: string }>) {
-    currentPage = event.detail.page;
-}
+    function handleNavigation(event: CustomEvent<{ page: string }>) {
+        currentPage = event.detail.page;
+    }
+
+    let toggleState: boolean = false; // Default: toggle off
+
 </script>
 
 <style>
@@ -39,11 +42,72 @@ function handleNavigation(event: CustomEvent<{ page: string }>) {
     .content {
         padding-bottom: 80px; /* Adjust depending on the height of your navbar to prevent overlap */
     }
+
+    .toggle-switch {
+      width: 50px;
+      height: 25px;
+      position: relative;
+      border-radius: 15px;
+      background-color: #ccc;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  }
+
+  .toggle-switch-checkbox {
+      display: none;
+  }
+
+  .toggle-switch-checkbox:checked + .toggle-switch-slider {
+      left: 25px;
+  }
+
+  .toggle-switch-slider {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      left: 0;
+      top: 0;
+      background-color: white;
+      border-radius: 50%;
+      transition: left 0.3s;
+  }
+
+  .toggle-switch-checkbox:checked + .toggle-switch-slider {
+      background-color: #4caf50;
+  }
+
+    .toggle-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 0.7rem;
+        color: #555;
+    }
+
+    .toggle-switch-checkbox:checked + .toggle-switch-slider .fa-user {
+        display: none;
+    }
+
+    .toggle-switch-checkbox:not(:checked) + .toggle-switch-slider .fa-tools {
+        display: none;
+    }
 </style>
 
 <div class="p-4 bg-gray-100 h-full min-h-screen content">
     <div class="max-w-screen-lg mx-auto">
-      <input type="text" placeholder="🔍 Search Contractors..." class="p-3 bg-white border rounded-full mb-6 w-full shadow-sm focus:outline-none focus:border-green-300">
+        <div class="flex items-center justify-between mb-6">
+            <input type="text" placeholder="🔍 Search Contractors..." class="flex-grow p-3 bg-white border rounded-full shadow-sm focus:outline-none focus:border-green-300 mr-4">
+            
+            <!-- Toggle switch -->
+            <label class="toggle-switch">
+                <input bind:checked={toggleState} type="checkbox" class="toggle-switch-checkbox">
+                <span class="toggle-switch-slider">
+                    <i class="fas fa-user toggle-icon"></i>
+                    <i class="fas fa-tools toggle-icon"></i>
+                </span>
+            </label>
+        </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {#each contractors as contractor}
