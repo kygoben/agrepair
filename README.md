@@ -1,38 +1,36 @@
-# create-svelte
+# FinTeach
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## Demo Video
+[![FinTeach Demo Video](http://img.youtube.com/vi/egRzmPS4BmA/0.jpg)](http://www.youtube.com/watch?v=egRzmPS4BmA "FinTeach Demo Video")
 
-## Creating a project
+## Inspiration
+Our group members have varying interests in finance and noticed a significant lack of fun or accessible information about different financial concepts for younger audiences, especially students in underfunded schools. We aimed to address this gap through FinTeach.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## What it does
+FinTeach targets students, primarily in middle and high school, with two main goals:
+1. Provide financial education that is accessible to younger students.
+2. Make learning about finance fun and engaging.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## How we built it
+To maximize accessibility, we chose Flutter for development. This framework allows our app to be versatile across various devices, ensuring that users can access it whether they are on a laptop, phone, or other devices.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Challenges we ran into
+- The 11-hour drive from Ames, IA to Dallas, TX.
+- Pivoting our project idea to align with the sponsor challenges.
+- Learning and working with Flutter as a new technology.
+- Deployment challenges due to our inexperience with Flutter.
+- The struggle to find whiteboards for planning.
 
-## Developing
+## Accomplishments that we're proud of
+- Successfully diving into and learning about Flutter.
+- Designing with our target audience in mind.
+- Eventually finding a whiteboard after an extensive search.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## What we learned
+Our team gained significant experience in using Flutter, Dart, and Material to build various parts of the UI, enhancing our technical skillset.
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## What's next for FinTeach?
+Future enhancements include:
+- Tailoring the question generation process to the user's skill level.
+- Adding sub-modules for each topic for a more in-depth experience.
+- Integrating a dictation option for accessibility.
